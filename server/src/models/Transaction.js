@@ -1,27 +1,50 @@
 'use strict'
 const { Model } = require('sequelize')
+
+
 module.exports = (sequelize, DataTypes) => {
-  class Transactions extends Model {
-    static associate (models) {}
+  class Transaction extends Model {
+    static associate ({User}) {
+      Transaction.belongsTo(User, {
+        foreignKey: 'userId'
+      })
+    }
   }
-  Transactions.init(
+  Transaction.init(
     {
-      transactionDate: {
+      userId: {
+        field: 'user_id',
+        allowNull: false,
+        type: DataTypes.INTEGER,
+        references: {
+          model: 'users',
+          key: 'id'
+        }
+      },
+      date: {
+        allowNull: false,
         type: DataTypes.DATE
       },
-      transactionType: {
+      title: {
+        allowNull: false,
         type: DataTypes.STRING
       },
-      userId: {
-        type: DataTypes.INTEGER
+      amount: {
+        allowNull: false,
+        type: DataTypes.FLOAT
       },
-      transactionSum: DataTypes.INTEGER,
-      status: DataTypes.STRING
+      status: {
+        allowNull: false,
+        type: DataTypes.BOOLEAN
+      }
     },
     {
       sequelize,
-      modelName: 'Transactions'
+      modelName: 'Transaction',
+      tableName: 'transactions',
+      underscored: true,
+      timestamps: false
     }
   )
-  return Transactions
+  return Transaction
 }

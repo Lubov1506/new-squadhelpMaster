@@ -142,6 +142,13 @@ module.exports.payment = async (req, res, next) => {
     });
     await bd.Contests.bulkCreate(req.body.contests, transaction);
     transaction.commit();
+        //todo create Transaction
+    await createPaymentTransaction({     
+      userId: req.tokenData.userId,
+      title: 'Contest payment',
+      amount: req.body.prize,
+      status: false})
+
     res.send();
   } catch (err) {
     transaction.rollback();
@@ -198,6 +205,13 @@ module.exports.cashout = async (req, res, next) => {
     },
     transaction);
     transaction.commit();
+
+    await createPaymentTransaction({        
+          userId: req.tokenData.userId,
+          title: 'Cashout',
+          amount: req.body.sum,
+          status: false})
+
     res.send({ balance: updatedUser.balance });
   } catch (err) {
     transaction.rollback();
@@ -206,3 +220,30 @@ module.exports.cashout = async (req, res, next) => {
 };
 
 
+module.exports.createPaymentTransaction =async({userId, title, amount, status})=>{
+        //todo create Transaction
+  try{
+        await bd.Transaction.create({
+          data: new Date(),
+          userId,
+          title,
+          amount,
+          status
+        })
+  }catch(err){
+  next(err)
+  }
+}
+module.exports.getUserTransactions = async(reqq,res,next)=>{
+
+  try{
+    const userTransactions =await bd.Transaction.findAll({
+      where: {
+        userId: req.tokenData.userId
+      }
+    })
+    res.status(200).send({data: userTransactions})
+  }catch(err){
+    next(err)
+  }
+}

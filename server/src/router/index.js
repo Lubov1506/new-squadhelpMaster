@@ -27,7 +27,11 @@ router.post(
   checkToken.checkToken,
   contestController.dataForContest,
 );
-
+router.post(
+  '/transactions',
+  checkToken.checkToken,
+  userController.getUserTransactions,
+);
 router.post(
   '/pay',
   checkToken.checkToken,
