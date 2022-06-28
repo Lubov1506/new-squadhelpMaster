@@ -15,17 +15,12 @@ module.exports = (sequelize, DataTypes) => {
       userId: {
         type: DataTypes.INTEGER
       },
-      transactionSum: {
-        type: DataTypes.INTEGER
-      },
-      status: {
-        type: DataTypes.STRING
-      }
+      transactionSum: DataTypes.INTEGER,
+      status: DataTypes.STRING
     },
     {
       sequelize,
-      modelName: 'Transactions',
-      tableName: 'transactions'
+      modelName: 'Transactions'
     }
   )
   return Transactions

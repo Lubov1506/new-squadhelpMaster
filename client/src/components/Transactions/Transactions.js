@@ -3,6 +3,18 @@ import React from 'react';
 
 const Transactions = (props) => {
 const {data} = props
+const tableBody = {data ? data.map(({data, title, status, amount}) =>{
+    return (
+        
+    )
+})
+    <tr>
+                        <td>{data}</td>
+                        <td>{title}</td>
+                        <td>{status}</td>
+                        <td>{amount}</td>
+                    </tr>
+
   return (
     <div >
         <table>
@@ -21,9 +33,14 @@ const {data} = props
                     Amount
                 </td>
             </th>
-            {data && data.map(transObject=>{
+            <tbody>
+            {data & data.map(({data, title, status, amount}) =>{
+                return (
+                    
+                )
+            }) : "There is no"}                
+            </tbody>
 
-            })}
         </table>
     </div>
   );
