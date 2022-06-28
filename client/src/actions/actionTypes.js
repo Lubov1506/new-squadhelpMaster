@@ -129,4 +129,8 @@ export default {
   CLEAR_USER_ERROR: 'CLEAR_USER_ERROR',
   CLEAR_CHAT_ERROR: 'CLEAR_CHAT_ERROR',
   CHANGE_SHOW_MODAL: 'CHANGE_SHOW_MODAL',
+
+  GET_TRANSACTIONS_REQUEST: 'get_transactions_request',
+  GET_TRANSACTIONS_SUCCESS: 'get_transactions_success',
+  GET_TRANSACTIONS_ERROR: 'get_transactions_error',
 };
